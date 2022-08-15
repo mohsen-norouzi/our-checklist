@@ -1,0 +1,19 @@
+{
+  "path": "cz-emoji",
+  "config": {
+    "cz-emoji": {
+      "conventional": true,
+      "skipQuestions": [
+        "issues"
+      ],
+      "symbol": false,
+      "scopes": [
+        "app",
+        "style",
+        "deps",
+        "build",
+        "release"
+      ]
+    }
+  }
+}
