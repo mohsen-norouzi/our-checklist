@@ -9,6 +9,9 @@
       "symbol": false,
       "scopes": [
         "app",
+        "team",
+        "category",
+        "todo",
         "style",
         "deps",
         "build",
