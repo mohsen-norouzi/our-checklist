@@ -24,7 +24,7 @@ export const apiSlice = createApi({
   }),
   endpoints: (builder) => ({
     //team
-    getTeams: builder.query<Team[], void>({
+    getTeams: builder.query<Response<Team[]>, void>({
       query: () => '/teams',
     }),
 
@@ -34,10 +34,10 @@ export const apiSlice = createApi({
     }),
 
     // todo
-    getTodos: builder.query<Todo[], void>({
+    getTodos: builder.query<Response<Todo[]>, void>({
       query: () => '/todos',
     }),
   }),
 })
 
-export const { useGetTeamsQuery, useGetCategoriesQuery, useLazyGetTodosQuery } = apiSlice;
+export const { useGetTeamsQuery, useGetCategoriesQuery, useGetTodosQuery } = apiSlice;
