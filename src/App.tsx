@@ -8,17 +8,18 @@ import { HomePage } from 'pages';
 
 import { ApiProvider } from '@reduxjs/toolkit/dist/query/react';
 import { apiSlice } from 'api/api-slice';
+import { Layout } from 'components';
 // pages
 
 const App = () => {
   return (
     <Provider store={store}>
       <ApiProvider api={apiSlice}>
-        <div>
+        <Layout>
           <h1>Our Checklist</h1>
           <hr />
           <HomePage />
-        </div>
+        </Layout>
       </ApiProvider>
     </Provider>
   );

@@ -12,11 +12,8 @@ export const HomePage = () => {
     return <h1>No Data</h1>;
   }
 
-  console.log('data', categoriesResult.data);
   return (
-    <div>
-      <h1>Home Page</h1>
-
+    <div className='flex flex-wrap gap-2 mx-2 p-5'>
       <CategoryList categories={categoriesResult.data} />
     </div>
   );
