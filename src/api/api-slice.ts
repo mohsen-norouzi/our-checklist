@@ -37,7 +37,15 @@ export const apiSlice = createApi({
     getTodos: builder.query<Response<Todo[]>, void>({
       query: () => '/todos',
     }),
+    getTodosByCategory: builder.query<Response<Todo[]>, number>({
+      query: (categoryId) => `/todos?filters[category][id][$eq]=${categoryId}`,
+    }),
   }),
 })
 
-export const { useGetTeamsQuery, useGetCategoriesQuery, useGetTodosQuery } = apiSlice;
+export const {
+  useGetTeamsQuery,
+  useGetCategoriesQuery,
+  useGetTodosQuery,
+  useGetTodosByCategoryQuery
+} = apiSlice;

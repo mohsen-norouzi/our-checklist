@@ -5,6 +5,8 @@ import Box from '@mui/material/Box';
 
 type Props = {
   // props: CircularProgressProps;
+  color: string;
+  done: boolean;
 };
 
 export const CircularStatic: React.FC<Props> = (props) => {
@@ -19,13 +21,13 @@ export const CircularStatic: React.FC<Props> = (props) => {
     };
   }, []);
 
-  return <CircularProgressWithLabel />;
-};
-
-const CircularProgressWithLabel = () => {
-  return (
+  const CircularProgressWithLabel = (
     <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-      <CircularProgress variant='determinate' value={20}/>
+      <CircularProgress
+        variant='determinate'
+        value={20}
+        sx={{ color: props.done ? props.color : 'gray' }}
+      />
       <Box
         sx={{
           top: 0,
@@ -42,4 +44,6 @@ const CircularProgressWithLabel = () => {
       </Box>
     </Box>
   );
+
+  return CircularProgressWithLabel;
 };
