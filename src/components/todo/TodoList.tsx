@@ -13,7 +13,11 @@ export const TodoList: FC<Props> = (props) => {
   const { data: todosResult, isLoading } = useGetTodosByCategoryQuery(props.categoryId);
 
   if (!todosResult || !todosResult.data) {
-    return <h3>no todos</h3>;
+    return <h3>loading...</h3>;
+  }
+
+  if (!todosResult.data.length) {
+    return <p>no todos</p>;
   }
 
   return (
