@@ -22,30 +22,46 @@ export const apiSlice = createApi({
       return headers
     },
   }),
+  tagTypes: ['Teams', 'Categories', 'Todos'],
   endpoints: (builder) => ({
     //team
     getTeams: builder.query<Response<Team[]>, void>({
       query: () => '/teams',
+      providesTags: ['Teams']
     }),
 
     // category
     getCategories: builder.query<Response<Category[]>, void>({
       query: () => '/categories',
+      providesTags: ['Categories']
     }),
 
     // todo
-    getTodos: builder.query<Response<Todo[]>, void>({
-      query: () => '/todos',
-    }),
     getTodosByCategory: builder.query<Response<Todo[]>, number>({
       query: (categoryId) => `/todos?filters[category][id][$eq]=${categoryId}`,
+      providesTags: ['Todos']
+    }),
+    updateTodo: builder.mutation<Response<Todo>, Partial<Todo>>({
+      query(data) {
+        const { id, ...body } = data;
+        return {
+          url: `todos/${id}`,
+          method: 'PUT',
+          body: {
+            data: body,
+          }
+        }
+      },
+      invalidatesTags: ['Todos'],
     }),
   }),
 })
 
 export const {
   useGetTeamsQuery,
+
   useGetCategoriesQuery,
-  useGetTodosQuery,
-  useGetTodosByCategoryQuery
+
+  useGetTodosByCategoryQuery,
+  useUpdateTodoMutation
 } = apiSlice;

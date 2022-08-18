@@ -19,7 +19,7 @@ export const TodoList: FC<Props> = (props) => {
   return (
     <>
       {todosResult.data.map((todo) => (
-        <TodoItem key={todo.id} title={todo.title} done={todo.done} color={props.color} />
+        <TodoItem key={todo.id} todo={todo} color={props.color} />
       ))}
     </>
   );
