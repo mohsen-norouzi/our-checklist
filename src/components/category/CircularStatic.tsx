@@ -6,27 +6,27 @@ import Box from '@mui/material/Box';
 type Props = {
   // props: CircularProgressProps;
   color: string;
-  done: boolean;
+  stats: { total: number; done: number };
 };
 
 export const CircularStatic: React.FC<Props> = (props) => {
   const [progress, setProgress] = React.useState(10);
 
+  const calculatePercent = () => {
+    const { total, done } = props.stats;
+    setProgress((100 * done) / total);
+  };
+
   React.useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 10));
-    }, 800);
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
+    calculatePercent();
+  }, [props.stats]);
 
   const CircularProgressWithLabel = (
     <Box sx={{ position: 'relative', display: 'inline-flex' }}>
       <CircularProgress
         variant='determinate'
-        value={20}
-        sx={{ color: props.done ? props.color : 'gray' }}
+        value={progress}
+        sx={{ color: progress === 100 ? props.color : 'gray' }}
       />
       <Box
         sx={{
@@ -40,7 +40,9 @@ export const CircularStatic: React.FC<Props> = (props) => {
           justifyContent: 'center',
         }}
       >
-        <Typography variant='caption' component='div' color='text.secondary'>{`1/12`}</Typography>
+        <Typography variant='caption' component='div' color='text.secondary'>
+          {props.stats.done}/{props.stats.total}
+        </Typography>
       </Box>
     </Box>
   );

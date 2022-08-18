@@ -1,16 +1,22 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
-import { Todo } from 'model';
 import { TodoItem } from './TodoItem';
 import { useGetTodosByCategoryQuery } from 'api/api-slice';
 
 type Props = {
   categoryId: number;
   color: string;
+  updateStats: (total: number, done: number) => void;
 };
 
 export const TodoList: FC<Props> = (props) => {
-  const { data: todosResult, isLoading } = useGetTodosByCategoryQuery(props.categoryId);
+  const { data: todosResult } = useGetTodosByCategoryQuery(props.categoryId);
+
+  useEffect(() => {
+    const total = todosResult?.data.length || 0;
+    const done = todosResult?.data.filter((t) => t.done).length || 0;
+    props.updateStats(total, done);
+  }, [todosResult]);
 
   if (!todosResult || !todosResult.data) {
     return <h3>loading...</h3>;
