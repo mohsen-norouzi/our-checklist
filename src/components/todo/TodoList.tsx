@@ -2,6 +2,7 @@ import { FC, useEffect } from 'react';
 
 import { TodoItem } from './TodoItem';
 import { useGetTodosByCategoryQuery } from 'api/api-slice';
+import { TodoForm } from './TodoForm';
 
 type Props = {
   categoryId: number;
@@ -22,15 +23,13 @@ export const TodoList: FC<Props> = (props) => {
     return <h3>loading...</h3>;
   }
 
-  if (!todosResult.data.length) {
-    return <p>no todos</p>;
-  }
-
   return (
     <>
       {todosResult.data.map((todo) => (
         <TodoItem key={todo.id} todo={todo} color={props.color} />
       ))}
+
+      <TodoForm categoryId={props.categoryId} />
     </>
   );
 };

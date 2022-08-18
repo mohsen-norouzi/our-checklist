@@ -3,4 +3,5 @@ export type Todo = {
     title: string;
     done: boolean;
     order: number;
+    category?: number;
 };

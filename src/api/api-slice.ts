@@ -41,6 +41,19 @@ export const apiSlice = createApi({
       query: (categoryId) => `/todos?filters[category][id][$eq]=${categoryId}`,
       providesTags: ['Todos']
     }),
+    addTodo: builder.mutation<Response<Todo>, Partial<Todo>>({
+      query(data) {
+        const { ...body } = data;
+        return {
+          url: 'todos',
+          method: 'POST',
+          body: {
+            data: body,
+          }
+        }
+      },
+      invalidatesTags: ['Todos'],
+    }),
     updateTodo: builder.mutation<Response<Todo>, Partial<Todo>>({
       query(data) {
         const { id, ...body } = data;
@@ -72,6 +85,7 @@ export const {
   useGetCategoriesQuery,
 
   useGetTodosByCategoryQuery,
+  useAddTodoMutation,
   useUpdateTodoMutation,
   useDeleteTodoMutation
 } = apiSlice;
