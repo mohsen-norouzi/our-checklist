@@ -1,11 +1,13 @@
 import { FC } from 'react';
-import { Avatar, Box, Icon } from '@mui/material';
+import { Box } from '@mui/material';
 
 import { useUpdateCategoryMutation } from 'api/api-slice';
 import { Category } from 'model';
 
 import { CircularStatic } from './CircularStatic';
 import { CategoryTitleForm } from './CategoryTitleForm';
+
+import { CategoryIconForm } from './CategoryIconForm';
 
 type Props = {
   category: Category;
@@ -20,14 +22,21 @@ export const CategoryHeader: FC<Props> = (props) => {
     updateCategory(data);
   };
 
+  const onIconPickHandler = (icon: string, color: string) => {
+    const data: any = { id: props.category.id, icon, color };
+    updateCategory(data);
+  };
+
   return (
     <Box
       component='div'
       className='flex items-center justify-between px-5 py-3 border-b border-b-neutral-300'
     >
-      <Avatar sx={{ bgcolor: props.category.color }}>
-        <Icon>{props.category.icon}</Icon>
-      </Avatar>
+      <CategoryIconForm
+        icon={props.category.icon}
+        color={props.category.color}
+        onPick={onIconPickHandler}
+      />
 
       <CategoryTitleForm title={props.category.title} onUpdate={handleUpdate} />
 
