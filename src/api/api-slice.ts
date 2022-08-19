@@ -35,6 +35,19 @@ export const apiSlice = createApi({
       query: () => '/categories',
       providesTags: ['Categories']
     }),
+    updateCategory: builder.mutation<Response<Category>, Partial<Category>>({
+      query(data) {
+        const { id, ...body } = data;
+        return {
+          url: `categories/${id}`,
+          method: 'PUT',
+          body: {
+            data: body,
+          }
+        }
+      },
+      invalidatesTags: ['Todos'],
+    }),
 
     // todo
     getTodosByCategory: builder.query<Response<Todo[]>, number>({
@@ -83,6 +96,7 @@ export const {
   useGetTeamsQuery,
 
   useGetCategoriesQuery,
+  useUpdateCategoryMutation,
 
   useGetTodosByCategoryQuery,
   useAddTodoMutation,
