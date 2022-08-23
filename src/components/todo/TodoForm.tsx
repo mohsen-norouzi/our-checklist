@@ -27,14 +27,13 @@ export const TodoForm: FC<Props> = (props) => {
         <ListItemIcon>
           <Icon>add</Icon>
         </ListItemIcon>
-        <FormControl size='small' className='w-full' sx={{ outline: 'none !important' }}>
+        <FormControl size='small' className='w-full !mr-5' sx={{ outline: 'none !important' }}>
           <Input sx={{ outline: 'none !important' }} value={title} onChange={handleChange} />
         </FormControl>
         <IconButton
           edge='end'
           aria-label='delete'
           size='small'
-          className='hover:text-rose-500'
           disabled={title.trim().length === 0}
           type='submit'
         >
