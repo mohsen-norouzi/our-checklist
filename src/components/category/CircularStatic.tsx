@@ -7,6 +7,7 @@ type Props = {
   // props: CircularProgressProps;
   color: string;
   stats: { total: number; done: number };
+  onToggleTodos: () => void;
 };
 
 export const CircularStatic: React.FC<Props> = (props) => {
@@ -38,7 +39,10 @@ export const CircularStatic: React.FC<Props> = (props) => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          cursor: 'pointer'
         }}
+        component='div'
+        onClick={props.onToggleTodos}
       >
         <Typography variant='caption' component='div' color='text.secondary'>
           {props.stats.done}/{props.stats.total}

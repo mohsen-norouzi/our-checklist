@@ -14,22 +14,29 @@ type Props = {
 
 export const CategoryItem: FC<Props> = (props) => {
   const [stats, setStats] = useState({ total: 0, done: 0 });
+  const [showTodos, setShowTodos] = useState(true);
 
   const handleUpdateStats = (total: number, done: number) => {
     setStats({ total, done });
   };
 
+  const handleToggleTodos = () => {
+    setShowTodos(!showTodos);
+  };
+
   return (
     <Card className='w-full animated fadeInUp !rounded-2xl'>
-      <CategoryHeader category={props.category} stats={stats} />
+      <CategoryHeader category={props.category} stats={stats} onToggleTodos={handleToggleTodos} />
 
-      <CardContent sx={{ '&:last-child': { pb: '16px' } }}>
-        <TodoList
-          categoryId={props.category.id}
-          color={props.category.color}
-          updateStats={handleUpdateStats}
-        />
-      </CardContent>
+      {showTodos && (
+        <CardContent sx={{ '&:last-child': { pb: '16px' } }}>
+          <TodoList
+            categoryId={props.category.id}
+            color={props.category.color}
+            updateStats={handleUpdateStats}
+          />
+        </CardContent>
+      )}
     </Card>
   );
 };

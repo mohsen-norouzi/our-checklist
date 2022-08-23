@@ -12,6 +12,7 @@ import { CategoryIconForm } from './CategoryIconForm';
 type Props = {
   category: Category;
   stats: { total: number; done: number };
+  onToggleTodos: () => void;
 };
 
 export const CategoryHeader: FC<Props> = (props) => {
@@ -40,7 +41,7 @@ export const CategoryHeader: FC<Props> = (props) => {
 
       <CategoryTitleForm title={props.category.title} onUpdate={handleUpdate} />
 
-      <CircularStatic color={props.category.color} stats={props.stats} />
+      <CircularStatic color={props.category.color} stats={props.stats} onToggleTodos={props.onToggleTodos}/>
     </Box>
   );
 };
