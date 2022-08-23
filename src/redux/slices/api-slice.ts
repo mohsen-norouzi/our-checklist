@@ -1,29 +1,37 @@
 // Need to use the React-specific entry point to allow generating React hooks
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import { Category, Response, Team, Todo } from 'model'
-
-import { RootState } from 'redux/store'
-
-const token = 'd0dbacc56009e884b2951bab695a507a49460d5df757891d005e4320e89374f8c7bd27b16209ad5565cd74f21b742d2d8bb26a5bdf23792824d1f73ad0df8bc4a44e04292a1ea5b02ae74da8483dbe792faaa0575ed3c95401237602d6d554f816bde21901bae9f6dfb8b4318f99d41c3db67c1bebcb84dc69952a7393746b7a'
+import { Category, Response, Team, Todo, User } from 'model'
 
 export const apiSlice = createApi({
-  reducerPath: 'apiSlice',
+  reducerPath: 'api',
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:1337/api/',
     prepareHeaders: (headers, { getState }) => {
-      // const token = (getState() as RootState).auth.token
+      const token = localStorage.getItem('jwt');
 
       // If we have a token set in state, let's assume that we should be passing it.
-      // if (token) {
-      headers.set('authorization', `Bearer ${token}`)
-      // }
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`)
+      }
 
       return headers
     },
   }),
   tagTypes: ['Teams', 'Categories', 'Todos'],
   endpoints: (builder) => ({
+    // user
+    login: builder.mutation<User, Partial<{ identifier: string, password: string }>>({
+      query(loginData) {
+        const { ...body } = loginData;
+        return {
+          url: 'auth/local',
+          method: 'POST',
+          body
+        }
+      },
+    }),
+
     //team
     getTeams: builder.query<Response<Team[]>, void>({
       query: () => '/teams',
@@ -93,11 +101,17 @@ export const apiSlice = createApi({
 })
 
 export const {
+  // user
+  useLoginMutation,
+
+  // team
   useGetTeamsQuery,
 
+  // category
   useGetCategoriesQuery,
   useUpdateCategoryMutation,
 
+  // todo
   useGetTodosByCategoryQuery,
   useAddTodoMutation,
   useUpdateTodoMutation,

@@ -1,26 +1,27 @@
 import { Provider } from 'react-redux';
+import { Route, Routes } from 'react-router-dom';
 
 import { store } from './redux/store';
-
+import { AuthProvider } from 'lib/auth/AuthProvider';
 import './App.css';
 
-import { HomePage } from 'pages';
-
-import { ApiProvider } from '@reduxjs/toolkit/dist/query/react';
-import { apiSlice } from 'api/api-slice';
-import { Layout } from 'components';
 // pages
+import { HomePage, LoginPage } from 'pages';
+
+// components
+import { Layout } from 'components';
 
 const App = () => {
   return (
     <Provider store={store}>
-      <ApiProvider api={apiSlice}>
+      <AuthProvider>
         <Layout>
-          <h1>Our Checklist</h1>
-          <hr />
-          <HomePage />
+          <Routes>
+            <Route path='/' element={<HomePage />} />
+            <Route path='/login' element={<LoginPage />} />
+          </Routes>
         </Layout>
-      </ApiProvider>
+      </AuthProvider>
     </Provider>
   );
 };

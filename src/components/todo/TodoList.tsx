@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 
 import { TodoItem } from './TodoItem';
-import { useGetTodosByCategoryQuery } from 'api/api-slice';
+import { useGetTodosByCategoryQuery } from 'redux/slices/api-slice';
 import { TodoForm } from './TodoForm';
 
 type Props = {

@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { Icon, IconButton, Input, ListItem, ListItemIcon } from '@mui/material';
 
-import { useDeleteTodoMutation, useUpdateTodoMutation } from 'api/api-slice';
+import { useDeleteTodoMutation, useUpdateTodoMutation } from 'redux/slices/api-slice';
 import { useDebounce } from 'hooks';
 import { Todo } from 'model';
 

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Masonry } from '@mui/lab';
 
-import { useGetCategoriesQuery } from 'api/api-slice';
+import { useGetCategoriesQuery } from 'redux/slices/api-slice';
 import { CategoryItem } from './CategoryItem';
 
 type Props = {
