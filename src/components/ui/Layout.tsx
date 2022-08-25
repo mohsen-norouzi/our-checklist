@@ -10,7 +10,7 @@ export const Layout: FC<Props> = (props) => {
     <Box
       component='div'
       sx={{ bgcolor: 'background.default' }}
-      className='w-screen min-h-screen flex flex-col justify-items-stretch'
+      className='w-screen min-h-screen flex flex-col justify-items-stretch h-full'
     >
       {props.children}
     </Box>

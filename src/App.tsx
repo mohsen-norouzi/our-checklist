@@ -6,7 +6,7 @@ import { AuthProvider } from 'lib/auth/AuthProvider';
 import './App.css';
 
 // pages
-import { HomePage, LoginPage } from 'pages';
+import { HomePage, TeamPage, LoginPage } from 'pages';
 
 // components
 import { Layout } from 'components';
@@ -18,6 +18,7 @@ const App = () => {
         <Layout>
           <Routes>
             <Route path='/' element={<HomePage />} />
+            <Route path='/teams' element={<TeamPage />} />
             <Route path='/login' element={<LoginPage />} />
           </Routes>
         </Layout>

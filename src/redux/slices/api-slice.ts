@@ -33,9 +33,10 @@ export const apiSlice = createApi({
     }),
 
     //team
-    getTeams: builder.query<Response<Team[]>, void>({
-      query: () => '/teams',
-      providesTags: ['Teams']
+    getTeams: builder.query<Team[], void>({
+      query: () => '/teams?populate[image][fields][0]=url',
+      providesTags: ['Teams'],
+      transformResponse: (response: Response<Team[]>) => response.data
     }),
 
     // category
