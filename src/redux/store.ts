@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { apiSlice } from './slices/api-slice';
 
 import appReducer from './slices/app-slice';
+import teamReducer from './slices/team-slice';
 import userReducer from './slices/user-slice';
 
 
@@ -11,6 +12,7 @@ export const store = configureStore({
     [apiSlice.reducerPath]: apiSlice.reducer,
     app: appReducer,
     user: userReducer,
+    team: teamReducer,
   },
 
   middleware: (getDefaultMiddleware) =>

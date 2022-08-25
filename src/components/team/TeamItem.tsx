@@ -9,16 +9,24 @@ import { Team } from 'model';
 
 type Props = {
   team: Team;
+  onSelect: (teamId: number) => void;
 };
 
 export const TeamItem: FC<Props> = (props) => {
-  console.log(props.team);
+  const handleSelect = () => {
+    props.onSelect(props.team.id);
+  };
+
   return (
-    <Card sx={{ maxWidth: 250 }}>
+    <Card
+      sx={{ maxWidth: 250, height: 300 }}
+      className='cursor-pointer transition-all hover:shadow-xl'
+      onClick={handleSelect}
+    >
       <CardMedia
         component='img'
-        height='140'
         image={import.meta.env.VITE_ENDPOINT + props.team.image.url}
+        className=''
       />
 
       <CardContent className=''>

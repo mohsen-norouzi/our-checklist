@@ -40,9 +40,10 @@ export const apiSlice = createApi({
     }),
 
     // category
-    getCategories: builder.query<Response<Category[]>, void>({
-      query: () => '/categories',
-      providesTags: ['Categories']
+    getCategoriesByTeam: builder.query<Category[], number>({
+      query: (teamId: number) => `/categories?filters[team][id][$eq]=${teamId}`,
+      providesTags: ['Categories'],
+      transformResponse: (response: Response<Category[]>) => response.data
     }),
     updateCategory: builder.mutation<Response<Category>, Partial<Category>>({
       query(data) {
@@ -109,7 +110,7 @@ export const {
   useGetTeamsQuery,
 
   // category
-  useGetCategoriesQuery,
+  useGetCategoriesByTeamQuery,
   useUpdateCategoryMutation,
 
   // todo

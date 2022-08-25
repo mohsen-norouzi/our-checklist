@@ -11,6 +11,7 @@ type Props = {
 };
 
 export const TodoList: FC<Props> = (props) => {
+  console.log('props.categoryId', props.categoryId);
   const { data: todosResult } = useGetTodosByCategoryQuery(props.categoryId);
 
   useEffect(() => {
