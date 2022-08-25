@@ -20,7 +20,7 @@ export const TeamItem: FC<Props> = (props) => {
   return (
     <Card
       sx={{ maxWidth: 250, height: 300 }}
-      className='cursor-pointer transition-all hover:shadow-xl'
+      className='cursor-pointer transition-all hover:bg-neutral-100'
       onClick={handleSelect}
     >
       <CardMedia

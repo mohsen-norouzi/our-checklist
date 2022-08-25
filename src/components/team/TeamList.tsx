@@ -4,6 +4,7 @@ import { useAppDispatch } from 'redux/hooks';
 
 import { useGetTeamsQuery } from 'redux/slices/api-slice';
 import { teamActions } from 'redux/slices/team-slice';
+import { NewTeamItem } from './NewTeamItem';
 
 import { TeamItem } from './TeamItem';
 
@@ -30,6 +31,8 @@ export const TeamList = () => {
       {data.map((team) => (
         <TeamItem key={team.id} team={team} onSelect={handleSelect} />
       ))}
+
+      <NewTeamItem />
     </Box>
   );
 };
