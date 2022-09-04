@@ -38,6 +38,41 @@ export const apiSlice = createApi({
       providesTags: ['Teams'],
       transformResponse: (response: Response<Team[]>) => response.data
     }),
+    addTeam: builder.mutation<Response<Team>, Partial<Team>>({
+      query(data) {
+        const { ...body } = data;
+        return {
+          url: 'teams',
+          method: 'POST',
+          body: {
+            data: body,
+          }
+        }
+      },
+      invalidatesTags: ['Teams'],
+    }),
+    updateTeam: builder.mutation<Response<Team>, Partial<Team>>({
+      query(data) {
+        const { id, ...body } = data;
+        return {
+          url: `teams/${id}`,
+          method: 'PUT',
+          body: {
+            data: body,
+          }
+        }
+      },
+      invalidatesTags: ['Teams'],
+    }),
+    deleteTeam: builder.mutation<Response<Team>, number>({
+      query(id) {
+        return {
+          url: `teams/${id}`,
+          method: 'DELETE',
+        }
+      },
+      invalidatesTags: ['Teams'],
+    }),
 
     // category
     getCategoriesByTeam: builder.query<Category[], number>({
@@ -108,6 +143,9 @@ export const {
 
   // team
   useGetTeamsQuery,
+  useAddTeamMutation,
+  useDeleteTeamMutation,
+  useUpdateTeamMutation,
 
   // category
   useGetCategoriesByTeamQuery,

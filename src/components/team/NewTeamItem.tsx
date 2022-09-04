@@ -1,10 +1,22 @@
+import React, { useState } from 'react';
 import { Button, Card, FormControl, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import { useState } from 'react';
 import clsx from 'clsx';
 
+import { Team } from 'model';
+import { useAddTeamMutation } from 'redux/slices/api-slice';
+
+const emptyForm = {
+  title: '',
+  description: '',
+  image: { url: '' },
+};
+
 export const NewTeamItem = () => {
+  const [addTeam, addTeamResult] = useAddTeamMutation();
+
   const [editMode, setEditMode] = useState(false);
+  const [formData, setFormData] = useState<Team>(emptyForm);
 
   const handleOpenForm = () => {
     setEditMode(true);
@@ -12,6 +24,20 @@ export const NewTeamItem = () => {
 
   const handleCloseForm = () => {
     setEditMode(false);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    addTeam(formData);
+    setEditMode(false);
+    setFormData(emptyForm);
   };
 
   return (
@@ -22,16 +48,23 @@ export const NewTeamItem = () => {
       })}
     >
       {editMode ? (
-        <form>
+        <form onSubmit={handleSubmit}>
           <FormControl className='w-full'>
-            <TextField label='Title' size='small' />
+            <TextField label='Title' size='small' name='title' onChange={handleChange} />
           </FormControl>
 
           <FormControl className='w-full !mt-2' size='small'>
-            <TextField label='Description' size='small' multiline rows={3} />
+            <TextField
+              label='Description'
+              size='small'
+              multiline
+              rows={3}
+              name='description'
+              onChange={handleChange}
+            />
           </FormControl>
 
-          <Button className='w-full !mt-2' variant='contained'>
+          <Button className='w-full !mt-2' variant='contained' type='submit'>
             Add
           </Button>
           <Button
